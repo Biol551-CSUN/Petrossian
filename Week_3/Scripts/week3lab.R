@@ -30,5 +30,5 @@ ggplot(mapping = aes(x = sex, #adding sex as x axis
        caption = "Source: Palmer Station LTER / palmerpengins package")+
   guides(color=FALSE)+ #removing color legend
   theme(title = element_text(size=12, color="dodgerblue1")) #changing title colors
-ggsave(here("Week_3", "Outputs", "penguinlab.png"),
-       width = 7, height = 5)
+ggsave(here("Week_3", "Outputs", "penguinlab.png"), #saving plot to week_3 Outputs folder
+       width = 7, height = 5) #size of png file in inches
