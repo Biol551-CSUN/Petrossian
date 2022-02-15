@@ -27,7 +27,7 @@ ggplot(mapping = aes(x = sex, #adding sex as x axis
        subtitle = "Body Mass by Sex for Adelie, Chinstrap, and Gentoo Penguins", #adding subtitle
        y = "Body Mass (g)", #changing axes titles
        x = "Sex",
-       caption = "Source: Palmer Station LTER / palmerpengins package")+
+       caption = "Source: Palmer Station LTER / palmerpengins package")+ #adding a caption to indicate source
   guides(color=FALSE)+ #removing color legend
   theme(title = element_text(size=12, color="dodgerblue1")) #changing title colors
 ggsave(here("Week_3", "Outputs", "penguinlab.png"), #saving plot to week_3 Outputs folder
