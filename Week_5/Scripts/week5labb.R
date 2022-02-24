@@ -47,4 +47,8 @@ Summary %>%
              color = datetime))+ #set color by datetime
   geom_point()+ #set geom to point
   labs(title = "Depth vs. Salinity In Situ by Time", #change title
-       x = "Salinity In Situ 1 p Cal") #change y axis title
+       x = "Salinity In Situ 1 p Cal", #change x axis title
+       color = "Time") #change legend title
+
+ggsave(here("Week_5", "Outputs", "week5labb.png"), #saving plot as png
+       width = 7, height = 5) #changing dimensions to 7 x 5 inches
