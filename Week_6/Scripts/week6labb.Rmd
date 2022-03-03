@@ -1,0 +1,60 @@
+---
+title: "Week 6 Lab B"
+author: "Cynthia Petrossian"
+date: "3/3/2022"
+output: 
+  html_document:
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.path = "../Outputs/") #create file path for outputs to automatically save
+```
+
+# Introduction
+The **Palmer Penguins** dataset provides information on *three* penguin species from *three* different islands: 
+
+1. Biscoe  
+2. Dream  
+3. Torgersen
+
+# Load Libraries
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(palmerpenguins)
+library(kableExtra)
+```
+
+# Inspecting the Data
+```{r}
+glimpse(penguins) #glimpsing penguin dataset
+```
+
+# Making a Table
+```{r, message=FALSE, warning=FALSE}
+penguins %>% 
+  group_by(species) %>% #grouping by species
+  summarise(bill_depth_mean = mean(bill_depth_mm, na.rm = TRUE), #calculating bill depth mean
+            bill_depth_variance = var(bill_depth_mm, na.rm = TRUE)) %>% #calculating bill depth variance 
+  kbl() %>% #crating kable
+  kable_classic() %>% #using classic styling
+  kable_styling(full_width=FALSE) %>% #condensing width
+  row_spec(0, bold = T, color = "white", background = "black") #coloring first row black
+```
+# Making a Plot
+```{r penguin2, message=FALSE, warning=FALSE}
+penguins %>% 
+  drop_na(sex) %>% #dropping all NA values in sex column
+  ggplot(aes(x = island, #setting x axis as island
+             y = bill_depth_mm, #setting y axis as bill depth
+             color = sex))+ #setting color as sex
+  geom_point(position = position_jitterdodge())+ #setting position as point - jitterdodge
+  labs(title = "Bill Depth (mm) vs. Island", #setting title
+       y = "Bill Depth (mm)", #setting y axis title
+       x = "Island", #setting x axis title
+       color = "Sex",#setting legend title
+       caption = "Source: Palmer Station LTER / palmerpengins package") #setting source caption
+```
+
+

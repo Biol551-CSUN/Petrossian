@@ -1,0 +1,40 @@
+---
+title: "week6classb"
+author: "Cynthia Petrossian"
+date: "3/3/2022"
+output: 
+  html_document:
+    theme: yeti
+---
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      fig.path = "../Outputs/")
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(kableExtra)
+```
+
+# Make a Plot
+```{r penguin1, fig.width=3, fig.height=4, fig.asp=1.2, fig.align="center", fig.cap="This is a plot of penguins.", echo=FALSE}
+penguins %>% 
+  ggplot(aes(x = bill_length_mm,
+             y = bill_depth_mm))+
+  geom_point()
+```
+# Make a Table
+```{r}
+penguins %>% 
+  group_by(species) %>% 
+  summarise(billmean = mean(bill_length_mm, na.rm = TRUE)) %>% 
+  kbl() %>% 
+  kable_classic() %>% 
+  row_spec(2, bold = T, color = "white", background = "red") %>% 
+  kable_styling(full_width = FALSE)
+```
+
+
