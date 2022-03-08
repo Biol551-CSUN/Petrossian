@@ -1,0 +1,99 @@
+---
+title: "Week 7 Class A"
+author: "Cynthia Petrossian"
+date: "3/8/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(here)
+library(maps)
+library(mapdata)
+library(mapproj)
+```
+
+# Read In Data
+```{r}
+popdata <- read_csv(here("Week_7", "Data", "CApopdata.csv")) #Read in data on population in CA by county
+stars <- read_csv(here("Week_7", "Data", "stars.csv")) #Read in data on number of seastars at different field sites
+```
+
+# Map Data
+```{r}
+world <- map_data("world")
+usa <- map_data("usa")
+italy <- map_data("italy")
+states <- map_data("state")
+counties <- map_data("county")
+```
+
+#Making a World Map
+```{r}
+ggplot()+
+  geom_polygon(data = world, aes(x = long,
+                                 y = lat,
+                                 group = group,
+                                 fill = region),
+               color = "black")+
+  guides(fill = FALSE)+
+  theme_minimal()+
+  theme(panel.background = element_rect(fill = "lightblue"))+
+  coord_map(projection = "mercator",
+            xlim = c(-180,180))
+```
+
+#Making a Map of California
+```{r}
+CA_data <- states %>% 
+  filter(region == "california")
+
+ggplot()+
+  geom_polygon(data = CA_data, aes(x = long,
+                                   y = lat,
+                                   group = group),
+               color = "black")+
+  coord_map()+
+  theme_void()
+```
+
+#Adding Population Data to California Map
+```{r}
+CApop_county <- popdata %>% 
+  select("subregion" = County, Population) %>%  #rename county column
+  inner_join(counties) %>% 
+  filter(region == "california") #filter by california counties
+ggplot()+
+  geom_polygon(data = CApop_county, aes(x = long,
+                                            y = lat,
+                                            group = group,
+                                            fill = Population),
+               color = "black")+
+  coord_map()+
+  theme_void()+
+  scale_fill_gradient(trans = "log10")
+```
+
+# Adding Star Data to California Map
+```{r}
+ggplot()+
+  geom_polygon(data = CApop_county, aes(x = long,
+                                            y = lat,
+                                            group = group,
+                                            fill = Population),
+               color = "black")+
+  geom_point(data = stars, aes(x = long,
+                               y = lat,
+                               size = star_no))+
+  coord_map()+
+  theme_void()+
+  scale_fill_gradient(trans = "log10")+
+  labs(size = "# stars/m2")
+ggsave(here("Week_7", "Outputs", "Capop.png"))
+```
+

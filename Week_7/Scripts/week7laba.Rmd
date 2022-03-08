@@ -1,0 +1,72 @@
+---
+title: "Week 7 Lab A"
+author: "Cynthia Petrossian"
+date: "3/8/2022"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      message=FALSE,
+                      warning=FALSE)
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(here)
+library(maps)
+library(mapdata)
+library(mapproj)
+```
+
+# Read In Data
+```{r}
+meteorites <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2019/2019-06-11/meteorites.csv") #read in data on meteor fall sites
+world <- map_data("world") #read in world map data
+```
+
+# Making a World Map
+```{r}
+ggplot()+ #creating base world map
+  geom_polygon(data = world, aes(x = long, #geom is polygon, using world data, x axis is long
+                                 y = lat, #y axis is lat
+                                 group = group), #set group to group
+               color = "black", #add black borders
+               fill = "gray")+ #fill everything in gray
+  theme_minimal()+ #minimal theme
+  theme(panel.background = element_rect(fill = "lightblue"))+ #add light blue background
+  coord_map(projection = "mercator", #set to mercator projection
+            xlim = c(-180,180)) #add x limits
+```
+
+# Adding Meteorite Data to World Map
+```{r}
+ggplot()+ #use base world map code
+  geom_polygon(data = world, aes(x = long,
+                                 y = lat,
+                                 group = group),
+               color = "black",
+               fill = "gray")+
+  geom_point(data = meteorites, aes(x = long, #add meteorite data, use geom point, x axis is long
+                                    y = lat, # y axis is lat
+                                    size = mass, #size of the points according to mass
+                                    color = mass))+ #color of the points according to mass
+  theme(axis.ticks = element_blank(), #remove axis ticks
+        axis.text.x = element_blank(), #remove x axis text
+        axis.text.y = element_blank(), #remove y axis text
+        axis.title.x = element_blank(), #remove x axis title
+        axis.title.y = element_blank())+ #remove y axis title
+  theme(panel.background = element_rect(fill = "lightblue"))+ #background is lightblue
+  coord_map(projection = "mercator", #mercator projection
+            xlim = c(-180,180))+ #x limits
+  labs(title = "Meteorite Impacts", #add title
+       subtitle = "Location of Meteorite Impacts Around the World", #add subtitle
+       size = "Meteorite Mass (g)", #change legend title
+       color = "Meteorite Mass (g)", #change legend title
+       caption = "Source: The Meteoritical Society by way of NASA") #add source caption
+ggsave(here("Week_7", "Outputs", "meteoritemap.png")) #save map
+```
