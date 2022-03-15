@@ -1,0 +1,101 @@
+---
+title: "Good Plot Bad Plot"
+author: "Cynthia Petrossian"
+date: "3/14/2022"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE)
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(here)
+library(tidytuesdayR)
+library(ggbump)
+library(ggdogs)
+```
+
+# Read In Data
+```{r}
+breed_rank_all <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-02-01/breed_rank.csv')
+view(breed_rank_all)
+```
+
+# Data Analysis
+```{r}
+pop <- breed_rank_all %>% #create top10
+   pivot_longer(`2013 Rank`:`2020 Rank`, #pivot longer, selecting 2013:2020 columns
+               names_to = "year", #put those into new column called year
+               values_to = "rank") %>% #put rank values into new column called rank
+  mutate(year = parse_number(year)) %>% #Remove word "Rank" from year column contents
+  slice(1:80) #use only first 80 rows
+```
+
+# Making A Bad Plot
+```{r}
+ggplot(pop, aes(x = year, #create ggplot using pop data, x is year
+                y = rank, #y is rank
+                group = Breed)) + #group is Breed
+  geom_line(aes(color = Breed), size = 2) + #geom line, color by Breed, size 2
+  geom_dog(aes(color = Breed), dog = "husky_2", size = 3)+ #geom dog, choose husky, size 4
+  theme(plot.background = element_rect(fill = "red"), #make plot bg red
+        panel.background = element_rect(fill = "green"), #make panel bg green
+        legend.background = element_rect(fill = "green"), #make legend bg green
+        plot.title = element_text(color = "hotpink1"),
+        plot.subtitle = element_text(color = "hotpink1"),
+        plot.caption = element_text(color = "hotpink1"),
+        legend.title = element_text(color = "yellowgreen"),
+        legend.text = element_text(color = "yellowgreen"),
+        axis.text.y = element_text(color = "hotpink1"),
+        axis.text.x = element_text(color = "hotpink1"),
+        axis.title.y = element_text(color = "hotpink1"),
+        axis.title.x = element_text(color = "hotpink1"))+ #change font
+  labs(title = "popular dogs", #add title
+       y = "how gud r they", #change y axis title
+       x = "the continuous passage of time")+ #change x axis title
+  scale_y_discrete()
+```
+
+This plot is a bad plot because  
+
+* The points are too large and cover one another 
+* The points are so large they also cover the line graph  
+* The background colors are are not pleasant on the eye  
+* The text colors are not easily readable  
+* The axis titles are not clear
+
+# Making A Good Plot
+```{r}
+ggplot()+ #create ggplot
+  geom_bump(data = pop, #geom bump, using pop data
+            mapping = aes(x = year, #x is year
+                          y = rank, #y is rank
+                          group = Breed, #group by Breed
+                          color = Breed, #color by Breed
+                          alpha = 1), #alpha is 1
+            smooth = 15, size = 4.25)+ #smooth bump lines to 15 and size is 4.25
+  scale_y_reverse(breaks = 1:13)+ #reverse y axis and add tick marks 1-13
+  guides(alpha = FALSE)+ #remove alpha legend
+  labs(title = "Most Popular Dog Breeds - Ranked", #add title
+       subtitle = "2013 - 2020", #add subtitle
+       y = "Rank", #change y axis title
+       x = "Year", #xhange x axis title
+       caption = "Source: American Kennel Club") #add source caption
+```
+
+This plot is a good plot because
+
+* The background color is pleasing on the eye and everything is clearly visible
+* The text color is clearly visible on the background
+* The bump chart lines are clearly visible
+* The different colors are easily distinguishable from one another
+* The legend is clear
+* The titles (main, sub, axes) are understandable and meaningful

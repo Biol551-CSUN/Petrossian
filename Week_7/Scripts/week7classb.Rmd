@@ -1,0 +1,35 @@
+---
+title: "Week 7 Class B"
+author: "Cynthia Petrossian"
+date: "3/10/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r}
+library(ggmap)
+library(tidyverse)
+library(here)
+library(ggsn)
+```
+
+# Register API Key
+```{r}
+register_google(key = "AIzaSyAOVbvzru9f1gR1_DEJP2LXhjnjEW7EmUA", write = TRUE)
+```
+
+# Read In Data
+```{r}
+ChemData<-read_csv(here("Week_7","Data","chemicaldata_maunalua.csv"))
+```
+
+# Get Base Maps From ggmap
+```{r}
+Oahu <- get_map("Oahu")
+ggmap(Oahu)
+```
+
