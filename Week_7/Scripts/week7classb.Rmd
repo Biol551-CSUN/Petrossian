@@ -19,7 +19,7 @@ library(ggsn)
 
 # Register API Key
 ```{r}
-register_google(key = "AIzaSyAOVbvzru9f1gR1_DEJP2LXhjnjEW7EmUA", write = TRUE)
+register_google(key = "YOUR KEY HERE", write = TRUE)
 ```
 
 # Read In Data
