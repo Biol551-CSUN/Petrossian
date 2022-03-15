@@ -1,0 +1,94 @@
+---
+title: "Week 8 Class A"
+author: "Cynthia Petrossian"
+date: "3/15/2022"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(here)
+library(patchwork)
+library(ggrepel)
+library(gganimate)
+library(magick)
+library(palmerpenguins)
+```
+
+# Using Patchwork
+```{r}
+#plot 1
+p1 <- penguins %>% 
+  ggplot(aes(x = body_mass_g,
+             y = bill_length_mm,
+             color = species))+
+  geom_point()
+p1
+
+#plot 2
+p2 <- penguins %>% 
+  ggplot(aes(x = sex,
+             y = body_mass_g,
+             color = species))+
+  geom_jitter(width = 0.2)
+
+p1/p2+
+  plot_layout(guides = "collect")+
+  plot_annotation(tag_levels = "A")
+```
+
+# Using ggrepel
+```{r}
+view(mtcars)
+ggplot(mtcars, aes(x = wt,
+                   y = mpg,
+                   label = rownames(mtcars)))+
+  geom_label_repel()+
+  geom_point(color = "red")
+```
+
+# Using gganimate
+```{r}
+penguins %>% 
+  ggplot(aes(x = body_mass_g,
+             y = bill_depth_mm,
+             color = species))+
+  geom_point()+
+  transition_states(year, #the thing you are animating by
+                    transition_length = 2, #relative length of transition (length between transitions)
+                    state_length = 1)+ #The length between end and beginning of gif
+  ease_aes("sine-in-out")+
+  ggtitle("Year: {closest_state}")+ #makes title change according to parameters
+  anim_save(here("Week_8", "Outputs", "mypenguingif.gif"))
+```
+
+# Using magick
+```{r}
+penguin<-image_read("https://pngimg.com/uploads/penguin/pinguin_PNG9.png")
+penguin
+
+penguins %>% 
+  ggplot(aes(x = body_mass_g,
+             y = bill_depth_mm,
+             color = species))+
+  geom_point()
+ggsave(here("Week_8", "Outputs", "penguinplot.png"))
+
+penplot <- image_read(here("Week_8", "Outputs", "penguinplot.png"))
+out <- image_composite(penplot, penguin, offset = "+70+30")
+out
+
+pengif<-image_read("https://media3.giphy.com/media/H4uE6w9G1uK4M/giphy.gif")
+outgif <- image_composite(penplot, pengif, gravity = "center")
+animation <- image_animate(outgif, fps = 10, optimize = TRUE)
+animation
+```
+
