@@ -11,7 +11,8 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
                       warning = FALSE, 
-                      message = FALSE)
+                      message = FALSE,
+                      fig.path = "../Outputs/")
 ```
 
 # Load Libraries
@@ -40,7 +41,7 @@ pop <- breed_rank_all %>% #create top10
 ```
 
 # Making A Bad Plot
-```{r}
+```{r badplot}
 ggplot(pop, aes(x = year, #create ggplot using pop data, x is year
                 y = rank, #y is rank
                 group = Breed)) + #group is Breed
@@ -73,7 +74,7 @@ This plot is a bad plot because
 * The axis titles are not clear
 
 # Making A Good Plot
-```{r}
+```{r goodplot}
 ggplot()+ #create ggplot
   geom_bump(data = pop, #geom bump, using pop data
             mapping = aes(x = year, #x is year
