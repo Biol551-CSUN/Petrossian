@@ -1,0 +1,100 @@
+---
+title: "Week 8 Class B"
+author: "Cynthia Petrossian"
+date: "3/17/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
+
+# Making A Function
+```{r}
+temp_C <- (temp_F - 32) * 5 / 9
+
+F_to_C <- function(temp_F) {
+  temp_C <- (temp_F - 32) * 5 / 9
+  return(temp_C)
+}
+```
+
+# Testing My Function
+```{r}
+F_to_C(32)
+F_to_C(212)
+```
+
+# Making Another Function
+```{r}
+temp_K <- temp_C + 273.15
+C_to_K <- function(temp_C){
+  temp_K <- temp_C + 273.15
+  return(temp_K)
+}
+C_to_K(25)
+```
+
+# Making Plots Into A Function
+```{r}
+ggplot(penguins, aes(x = body_mass_g,
+                     y = bill_length_mm,
+                     color = island))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  theme_bw()
+
+myplot <- function(data = penguins, x, y){
+  ggplot(data, aes(x = {{x}},
+                     y = {{y}},
+                     color = island))+
+  geom_point()+
+  geom_smooth(method = "lm")+
+  theme_bw()
+}
+myplot(x = body_mass_g, y = bill_length_mm)+
+  labs(x = "Body Mass (g)",
+       y = "Flipper Length (mm)")
+```
+
+# Add If-Else Statement For More Flexibility
+```{r}
+a <- 4
+b <- 5
+
+if(a>b){
+  f <- 20
+} else{
+  f <- 10
+}
+f
+```
+
+# Back To Plotting
+```{r}
+myplot <- function(data = penguins, x, y, lines = TRUE){
+  if(lines == TRUE){
+  ggplot(data, aes(x = {{x}},
+                     y = {{y}},
+                     color = island))+
+    geom_point()+
+    geom_smooth(method = "lm")+
+    theme_bw()
+  }
+  else{
+    ggplot(data, aes(x = {{x}},
+                     y = {{y}},
+                     color = island))+
+      geom_point()+
+      theme_bw()
+  }
+}
+myplot(x = body_mass_g, y = flipper_length_mm, lines = FALSE)
+```
+

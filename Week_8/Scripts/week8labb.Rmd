@@ -1,0 +1,56 @@
+---
+title: "Week 8 Lab B"
+author: "Cynthia Petrossian"
+date: "3/17/2022"
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message=FALSE,
+                      warning=FALSE)
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(here)
+```
+
+# Making A Function
+```{r}
+g_to_kg <- function(g){ #creating function kg to g - input is g
+  kg <- g/1000 #formula
+  return(kg) #return kg value
+}
+g_to_kg(1500) #turning 1500 grams into kg
+```
+
+# Making A Plot Function
+```{r}
+penguinplot <- function(data = penguins, x, y, sizeval=TRUE){ #creating function penguinplot - data will always equal penguins dataset
+  if(sizeval == TRUE){ #if sizeval is TRUE...
+    ggplot(data, aes(x = {{x}}, #x ix {{x}} from the dataset
+                     y = {{y}}, #y is {{y}} from the dataset
+                     color = species))+ #color is by species
+   geom_point(size = 2) #...point size will be 2
+  }
+  else{ #else... (FALSE)
+    ggplot(data, aes(x = {{x}}, #x ix {{x}} from the dataset
+                     y = {{y}}, #y is {{y}} from the dataset
+                     color = species))+ #color is by species
+      geom_point() #...default geom point size which is smaller
+  }
+}
+penguinplot(x = body_mass_g, y = flipper_length_mm, sizeval = FALSE)+ #using function
+  labs(title = "Flipper Length (mm) vs. Body Mass (g) in Palmer Penguins", #add title
+       x = "Body Mass (g)", #change x axis title
+       y = "Flipper Length (mm)", #change y axis title
+       color = "Species") #change legend title
+ggsave(here("Week_8", "Outputs", "penguinfunctionplot.png")) #saving plot
+```
+
