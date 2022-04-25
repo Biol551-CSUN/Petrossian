@@ -1,0 +1,52 @@
+---
+title: "Week 12 Lab B"
+author: "Cynthia Petrossian"
+date: "4/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE,
+                      fig.path = "../Outputs/")
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+# Read In Data
+```{r}
+tidal <- read_csv(here("Week_12", "Data", "intertidaldata.csv")) #read in data
+view(tidal)
+```
+
+# Data Wrangling
+```{r algae}
+tidalclean <- tidal %>% #create new object
+  clean_names() #use janitor package to clean up column names
+tidalclean
+
+tidalclean %>% 
+  mutate(site = factor(site)) #change site column to factor
+
+algae<-tidalclean %>% #create new algae object
+  group_by(site)%>% #group by site column
+  summarise(total_algae = sum(algae)) #get sums of algae counts by site
+
+algae #view tibble
+
+algae %>% 
+  ggplot(aes(fct_reorder(site, total_algae, .desc = TRUE), #ggplot, set x axis as descending
+             y = total_algae))+ #y axis is algae amounts
+  geom_col(fill = "seagreen")+ #geom column and fill green
+  labs(x = "Sites", #label x axis
+       y = "Total Algae Count", #label y axis
+       title = "Algae Counts by Site")+ #add title
+  scale_x_discrete(guide = guide_axis(n.dodge=3)) #separate column names on x axis
+```
+
