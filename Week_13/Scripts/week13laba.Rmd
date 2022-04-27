@@ -1,0 +1,60 @@
+---
+title: "Week 13 Lab A"
+author: "Cynthia Petrossian"
+date: "4/26/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load Libraries
+```{r}
+library(tidyverse)
+library(here)
+```
+
+# for loop
+```{r}
+HWPath<-here("Week_13", "Data", "homework") #location of the folder
+files <- dir(path = HWPath,pattern = ".csv") #looking for everything w/ .csv 
+files #view files
+
+#allocate space
+hw<-data.frame(matrix(nrow = length(files), ncol = 5)) #create dataframe with row for every file and 5 columns
+colnames(hw)<-c("filename","mean_temp", "mean_int", "sd_temp", "sd_int") #names of columns
+hw #view dataframe
+
+raw_data<-read_csv(paste0(HWPath,"/",files[1])) # test by reading in the first file and see if it works
+head(raw_data) #head of data
+
+for (i in 1:length(files)){ #loop over 1:the number of files 
+raw_data<-read_csv(paste0(HWPath,"/",files[i])) #add in raw data
+#glimpse(raw_data) #glimpse raw data
+hw$filename[i]<-files[i] #add file names
+hw$mean_temp[i]<-mean(raw_data$Temp.C, na.rm =TRUE) #add in means
+hw$mean_int[i]<-mean(raw_data$Intensity.lux, na.rm =TRUE) #add in means
+hw$sd_temp[i]<-sd(raw_data$Temp.C, na.rm =TRUE) #add in standarad deviation
+hw$sd_int[i]<-sd(raw_data$Intensity.lux, na.rm =TRUE) #add in standarad deviation
+}
+
+```
+
+
+# map()
+```{r}
+filesmap <- dir(path = HWPath,pattern = ".csv", full.names = TRUE) #get files from previous path
+filesmap #view files
+
+datamap<-filesmap %>% #create object datamap
+  set_names()%>% #sets the id of each list to the file name
+  map_df(read_csv,.id = "filename") %>%  # map everything to a dataframe and put the id in a column called filename
+  group_by(filename) %>% #group by file name
+  summarise(mean_temp = mean(Temp.C, na.rm = TRUE), #get means
+            mean_int = mean(Intensity.lux, na.rm = TRUE), #get means
+            sd_temp = sd(Temp.C, na.rm = TRUE), #get standarad deviation
+            sd_int = sd(Intensity.lux, na.rm = TRUE)) #get standarad deviation
+datamap #view datamap
+```
+
