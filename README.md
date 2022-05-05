@@ -16,14 +16,16 @@ This repository contains all the work done for BIOL 551/L Spring 2022. It will b
 - [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_4/Outputs)
 
 [Week 5](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_5)  
+- [Data](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_5/Data)  
 - [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_5/Scripts)  
 - [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_5/Outputs)
 
-[Week 6](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_6)  
+[Week 6](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_6)   
 - [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_6/Scripts)  
 - [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_6/Outputs)
 
 [Week 7](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_7)  
+- [Data](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_7/Data)  
 - [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_7/Scripts)  
 - [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_7/Outputs)
 
@@ -32,13 +34,14 @@ This repository contains all the work done for BIOL 551/L Spring 2022. It will b
 - [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_8/Outputs)
 
 [Week 10](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_10)  
-- [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_10/Scripts)  
-- [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_10/Outputs)
+- [Data](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_10/Data)  
+- [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_10/Scripts) 
 
 [Week 12](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_12)  
+- [Data](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_12/Data)  
 - [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_12/Scripts)  
 - [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_12/Outputs)
 
 [Week 13](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_13)  
-- [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_13/Scripts)  
-- [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_13/Outputs)
+- [Data](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_13/Data)  
+- [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_13/Scripts) 
