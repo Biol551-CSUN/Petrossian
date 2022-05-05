@@ -10,7 +10,8 @@ This repository contains all the work done for BIOL 551/L Spring 2022. It will b
 - [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_3/Scripts)  
 - [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_3/Outputs)
 
-[Week 4](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_4)  
+[Week 4](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_4) 
+- [Data](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_4/Data)  
 - [Scripts](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_4/Scripts)  
 - [Outputs](https://github.com/Biol551-CSUN/Petrossian/tree/main/Week_4/Outputs)
 
